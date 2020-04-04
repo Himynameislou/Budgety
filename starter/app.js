@@ -1,6 +1,28 @@
 // Budget Controller Module
 var budgetController = (function() {
-  
+
+  var Expense = function(id, description, value) {
+    this.id = id;
+    this.description = description;
+    this.value = value;
+  };
+
+  var Income = function(id, description, value) {
+    this.id = id;
+    this.description = description;
+    this.value = value;
+  };
+
+  var data = {
+    allItems: {
+      exp: [],
+      inc: []
+    },
+    totals: {
+      exp: 0,
+      inc: 0
+    }
+  }
 })();
 
 
@@ -49,9 +71,6 @@ var UIController = (function () {
 
 // Global App Controller
 
-// The two first modules work independantly due to 'seperation of concerns', they need an App Controller to interact.  Hence bellow we call them as arguments in a slightly different named way.
-
-
 var controller = (function(budgetCtrl, UICtrl){
 
   var setupEventListeners = function() {
@@ -59,7 +78,7 @@ var controller = (function(budgetCtrl, UICtrl){
     var DOM = UIController.getDOMstrings();
 
     document.querySelector(DOM.inputBtn).addEventListener('click', ctrlAddItem);
-  // Using an event object for the keypress.  Notice we put it outside in the global area bc it is not tied to a single button.
+  
     document.addEventListener('keypress', function(event){
       if (event.keyCode === 13 || event.which === 13) {
         ctrlAddItem();
